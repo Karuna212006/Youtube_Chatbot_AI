@@ -1,4 +1,6 @@
+# ========================
 # Python
+# ========================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -11,56 +13,123 @@ dist/
 build/
 .eggs/
 
+# ========================
 # Virtual Environments
+# ========================
 venv/
 env/
 ENV/
 .venv/
 .env/
+myenv/
 
-# Environment Variables / Secrets
+# ========================
+# Environment Variables & Secrets
+# ========================
 .env
 .env.local
 .env.*.local
+*.env
 secrets.json
-config.json
+config.local.json
 
-# API Keys
+# ========================
+# API Keys (YouTube, Gemini, OpenAI, etc.)
+# ========================
 api_keys.txt
+api_key.txt
 *.key
+credentials.json
+token.json
+service_account.json
 
+# ========================
 # IDE / Editor
+# ========================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.project
+.classpath
 
-# OS
+# ========================
+# OS Files
+# ========================
 .DS_Store
 Thumbs.db
 desktop.ini
+ehthumbs.db
 
+# ========================
 # Logs
+# ========================
 *.log
 logs/
+error.log
+output.log
 
+# ========================
 # Jupyter Notebooks
+# ========================
 .ipynb_checkpoints/
+*.ipynb
 
-# Testing
+# ========================
+# Testing & Coverage
+# ========================
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
 
-# Distribution
+# ========================
+# Distribution / Build
+# ========================
 *.whl
 *.tar.gz
+*.zip
 
-# Node (if any frontend)
+# ========================
+# Node / Frontend (if any)
+# ========================
 node_modules/
 npm-debug.log*
+yarn-error.log*
 
+# ========================
 # Database
+# ========================
 *.db
 *.sqlite3
+*.sqlite
+
+# ========================
+# AI / ML Model Files
+# ========================
+*.pkl
+*.pickle
+*.h5
+*.pt
+*.pth
+*.onnx
+models/
+checkpoints/
+
+# ========================
+# Vector Store / Embeddings Cache
+# ========================
+faiss_index/
+chroma_db/
+vector_store/
+embeddings_cache/
+
+# ========================
+# YouTube Data Cache
+# ========================
+transcripts/
+captions/
+*.vtt
+*.srt
+youtube_cache/

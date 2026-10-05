@@ -1,3 +1,93 @@
+Agentic Multi-Video Study Assistant with Fact-Checking & Q&A
+
+An autonomous multi-agent system that turns one or more YouTube videos into synthesized, fact-checked study material — study notes, a publishable blog article, and a quiz — using LangGraph for agent orchestration and RAG for content retrieval.
+
+Built as a B.Tech final-year project (AI & Data Science), Dr. N.G.P. Institute of Technology, Coimbatore.
+
+What it does
+
+Unlike single-video summarizer tools (Eightify, NoteGPT, Noiz), this system:
+
+Handles multiple videos on the same topic and synthesizes one combined, deduplicated output instead of separate per-video summaries
+Adapts its workflow to video type — a lecture/tutorial is processed differently from a podcast/review
+Fact-checks claims made in the video against external web sources
+Self-reviews its own output via a Critic Agent, regenerating content that doesn't meet quality criteria before finalizing
+Produces an actual publishable blog post, not just bullet-point summaries
+How it works
+User submits 1–5 YouTube links (same topic)
+          ↓
+Transcript Extraction Agent
+  (youtube-transcript-api → falls back to yt-dlp + Whisper if no captions)
+          ↓
+Content Analysis Agent
+  (classifies each video: tutorial/lecture vs. podcast/review)
+          ↓
+Chunking + Embedding → Vector Store (ChromaDB)
+          ↓
+Router Agent (LangGraph)
+    ↙                    ↓                    ↘
+Study Notes Agent   Blog Writing Agent    Key-Insights Agent
+Quiz Agent          (always runs;         Fact-Check Agent
+                     synthesizes across
+                     all input videos)
+    ↘                    ↓                    ↙
+              Critic Agent
+    (checks draft against an accuracy/completeness/
+     structure rubric; sends specific feedback back
+     for regeneration — capped at 3 retries)
+          ↓ (approved)
+     Output Agent → Markdown/HTML
+          ↓
+   FastAPI backend (POST /process-videos)
+          ↓
+    Streamlit frontend
+Tech stack
+Layer	Tool
+Agent orchestration	LangGraph
+Transcript extraction	youtube-transcript-api, yt-dlp, openai-whisper
+Vector store / RAG	ChromaDB
+Fact-checking / web search	Tavily API
+Backend	FastAPI
+Frontend	Streamlit
+LLM	TBD — see Open Items below
+Project status
+✅ Academic documentation complete (problem statement, objectives, SDG mapping, existing-system analysis, proposed methodology, system architecture)
+✅ 15-week execution plan finalized (5 phases, Review 1 at Week 5, Review 2 at Week 10)
+🔲 LLM selection — deciding between API-based (Claude/GPT) vs. local (Ollama/Llama 3)
+🔲 Critic Agent rubric — concrete evaluation criteria and LangGraph feedback-loop implementation
+🔲 Implementation — pipeline not yet built (see plan below)
+15-week plan (summary)
+Phase	Weeks	Focus
+1. Foundations & Setup	1–3	Repo setup, LangGraph learning, transcript extraction, chunking/embedding
+2. Core Agent Pipeline	4–7	Content classification, Router, Study Notes/Quiz/Blog/Key-Insights agents
+3. Multi-Video, Fact-Check, Critique	8–11	Multi-video synthesis, Fact-Check Agent, Critic Agent + feedback loop
+4. Full-Stack Integration	12–13	FastAPI backend, Streamlit frontend
+5. Polish & Submission	14–15	Testing, evaluation metrics, final report, demo
+
+Review 1 milestone: Week 5 (single-video pipeline working end-to-end). Review 2 milestone: Week 10 (multi-video, fact-checked, self-corrected pipeline working end-to-end).
+
+Why this matters (SDG alignment)
+
+Primarily mapped to SDG 4 — Quality Education: converts unstructured video content into structured, accessible study material, lowering the barrier to self-paced learning from freely available video resources. Secondary alignment with SDG 9 (applied AI innovation) and SDG 16 (access to verified information via fact-checking).
+
+Getting started (once implementation begins)
+bash
+git clone <repo-url>
+cd <repo-name>
+pip install -r requirements.txt
+# configure API keys (.env): LLM provider, Tavily
+uvicorn app.main:app --reload      # start backend
+streamlit run frontend/app.py      # start frontend
+Team
+
+
+References
+Yao et al. (2023), ReAct: Synergizing Reasoning and Acting in Language Models, ICLR
+Lewis et al. (2020), Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, NeurIPS
+LangGraph official documentation — https://langchain-ai.github.io/langgraph/
+Radford et al. (2022), Robust Speech Recognition via Large-Scale Weak Supervision (Whisper), OpenAI
+Douze et al. (2024), The FAISS Library, Meta AI Research
+
 # 🎬 YouTube Chatbot AI
 
 <div align="center">
@@ -251,9 +341,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ## 👨‍💻 Author
 
 **Karunakaran**  
-📧 [your-email@example.com](mailto:your-email@example.com)  
-🔗 [GitHub](https://github.com/YOUR_USERNAME)  
-💼 [LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
+📧 [your-email@example.com](mailto:karunakaranguru2006.com)  
+🔗 [GitHub](https://github.com/Karuna212006)  
 
 ---
 
